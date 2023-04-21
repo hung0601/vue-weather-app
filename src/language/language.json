@@ -1,0 +1,244 @@
+{
+    "en": {
+        "leftbar": {
+            "home": "Go to homepage",
+            "hanoi": "Ha Noi",
+            "tokyo": "Tokyo",
+            "newyork": "New York",
+            "lodon": "London",
+            "about": "Go to about"
+        },
+        "mainnav": {
+            "language": "Language",
+            "search": "Search city",
+            "signin": "Sign in"
+        },
+        "about": {
+            "creater": "This is website created by Hunghm",
+            "api": "Using weather visual crossing api",
+            "homepage": "homepage"
+        },
+        "cityview": {
+            "today": "Today",
+            "hourly": "Hourly",
+            "days": "15 Days",
+            "notice": "Invalid location found. Please check your location!"
+        },
+        "today": {
+            "weathertoday": "Weather Today",
+            "day": "Day",
+            "night": "Night",
+            "morning": "Morning",
+            "afternoon": "Afternoon",
+            "evening": "Evening",
+            "overnight": "Overnight"
+        },
+        "hourly": {
+            "hourly": "Hourly Weather"
+        },
+        "days": {
+            "days": "15 Days"
+        },
+        "details": {
+            "feelslike": "Feels like",
+            "sunrise": "Sunrise",
+            "sunset": "Sunset",
+            "highlow": "High/Low",
+            "humidity": "Humidity",
+            "uv": "UV index",
+            "visibility": "Visibility",
+            "windspeed": "Wind Speed",
+            "winddir": "Wind direction",
+            "cloud": "Cloud Cover"
+        },
+        "login": {
+            "loginform": "Login Form",
+            "email": "Enter email",
+            "password": "Enter password",
+            "remember": "Remember me",
+            "forgotpass": "Forgot Password",
+            "login": "Login",
+            "register": "register now"
+        },
+        "register": {
+            "signup": "Sign Up",
+            "username": "Enter username",
+            "email": "Enter email",
+            "password": "Enter password",
+            "checkpass": "Comfirm yout password",
+            "login": "Login"
+        },
+        "conditions": {
+            "Blowing Or Drifting Snow": "Blowing Or Drifting Snow",
+            "Drizzle": "Drizzle",
+            "Heavy Drizzle": "Heavy Drizzle",
+            "Light Drizzle": "Light Drizzle",
+            "Heavy Drizzle/Rain": "Heavy Drizzle/Rain",
+            "Light Drizzle/Rain": "Light Drizzle/Rain",
+            "Dust storm": "Dust storm",
+            "Fog": "Fog",
+            "Freezing Drizzle/Freezing Rain": "Freezing Drizzle/Freezing Rain",
+            "Heavy Freezing Drizzle/Freezing Rain": "Heavy Freezing Drizzle/Freezing Rain",
+            "Light Freezing Drizzle/Freezing Rain": "Light Freezing Drizzle/Freezing Rain",
+            "Freezing Fog": "Freezing Fog",
+            "Heavy Freezing Rain": "Heavy Freezing Rain",
+            "Light Freezing Rain": "Light Freezing Rain",
+            "Funnel Cloud/Tornado": "Funnel Cloud/Tornado",
+            "Hail Showers": "Hail Showers",
+            "Ice": "Ice",
+            "Lightning Without Thunder": "Lightning Without Thunder",
+            "Mist": "Mist",
+            "Precipitation In Vicinity": "Precipitation In Vicinity",
+            "Rain": "Rain",
+            "Heavy Rain And Snow": "Heavy Rain And Snow",
+            "Light Rain And Snow": "Light Rain And Snow",
+            "Rain Showers": "Rain Showers",
+            "Heavy Rain": "Heavy Rain",
+            "Light Rain": "Light Rain",
+            "Sky Coverage Decreasing": "Sky Coverage Decreasing",
+            "Sky Coverage Increasing": "Sky Coverage Increasing",
+            "Sky Unchanged": "Sky Unchanged",
+            "Smoke Or Haze": "Smoke Or Haze",
+            "Snow": "Snow",
+            "Snow And Rain Showers": "Snow And Rain Showers",
+            "Snow Showers": "Snow Showers",
+            "Heavy Snow": "Heavy Snow",
+            "Light Snow": "Light Snow",
+            "Squalls": "Squalls",
+            "Thunderstorm": "Thunderstorm",
+            "Thunderstorm Without Precipitation": "Thunderstorm Without Precipitation",
+            "Diamond Dust": "Diamond Dust",
+            "Hail": "Hail",
+            "Overcast": "Overcast",
+            "Partially cloudy": "Partially cloudy",
+            "Clear": "Clear"
+        },
+        "chart": {
+            "temp": "Temp",
+            "hum": "Humidity",
+            "uv": "UV index",
+            "snow": "Snow"
+        }
+    },
+    "vn": {
+        "leftbar": {
+            "home": "Trang chủ",
+            "hanoi": "Hà Nội",
+            "tokyo": "Tokyo",
+            "newyork": "New York",
+            "lodon": "London",
+            "about": "Về chúng tôi"
+        },
+        "mainnav": {
+            "language": "Ngôn Ngữ",
+            "search": "Tìm kiếm thành phố",
+            "signin": "Đăng nhập"
+        },
+        "about": {
+            "creater": "Trang web được tạo bởi Hunghm",
+            "api": "Sử dụng API của weather visual crossing",
+            "homepage": "Trang chủ"
+        },
+        "cityview": {
+            "today": "Hôm nay",
+            "hourly": "Hằng giờ",
+            "days": "15 ngày",
+            "notice": "Không tìm thấy thông tin thời tiết về địa điểm"
+        },
+        "today": {
+            "weathertoday": "Thời tiết hôm nay",
+            "day": "Ngày",
+            "night": "Đêm",
+            "morning": "Sáng",
+            "afternoon": "Chiều",
+            "evening": "Tối",
+            "overnight": "Đêm"
+        },
+        "hourly": {
+            "hourly": "Thời tiết theo giờ"
+        },
+        "days": {
+            "days": "15 ngày"
+        },
+        "details": {
+            "feelslike": "Cảm nhận",
+            "sunrise": "Mặt trời mọc",
+            "sunset": "Mặt trời lặn",
+            "highlow": "Cao/Thấp",
+            "humidity": "Độ ẩm",
+            "uv": "Chỉ số UV",
+            "visibility": "Tầm nhìn",
+            "windspeed": "Gió",
+            "winddir": "Hướng gió",
+            "cloud": "Mây"
+        },
+        "login": {
+            "loginform": "Đăng Nhập",
+            "email": "Nhập email",
+            "password": "Nhập mật khẩu",
+            "remember": "Lưa đăng nhập",
+            "forgotpass": "Quên mật khẩu",
+            "login": "Đăng Nhập",
+            "register": "Đăng kí"
+        },
+        "register": {
+            "signup": "Đăng ký",
+            "username": "Nhập tên người dùng",
+            "email": "Nhập email",
+            "password": "Nhập mật khẩu",
+            "checkpass": "Nhập lại mật khẩu",
+            "login": "Đăng nhập"
+        },
+        "conditions": {
+            "Blowing Or Drifting Snow": "Tuyết bay hoặc tuyết cuộn",
+            "Drizzle": "Mưa phùn",
+            "Heavy Drizzle": "Mưa phùn nặng hạt",
+            "Light Drizzle": "Mưa phùn nhẹ",
+            "Heavy Drizzle/Rain": "Mưa đá/mưa lớn",
+            "Light Drizzle/Rain": "Mưa nhẹ/mưa phùn",
+            "Dust storm": "Bão cát",
+            "Fog": "Sương mù",
+            "Freezing Drizzle/Freezing Rain": "Mưa phùn/mưa đá đóng băng",
+            "Heavy Freezing Drizzle/Freezing Rain": "Mưa đá đóng băng nặng",
+            "Light Freezing Drizzle/Freezing Rain": "Mưa phùn/mưa đá đóng băng nhẹ",
+            "Freezing Fog": "Sương mù đóng băng",
+            "Heavy Freezing Rain": "Mưa đá đóng băng nặng",
+            "Light Freezing Rain": "Mưa đá đóng băng nhẹ",
+            "Funnel Cloud/Tornado": "Mây xoắn/tornado",
+            "Hail Showers": "Mưa đá rơi",
+            "Ice": "Băng giá",
+            "Lightning Without Thunder": "Sét không có sấm",
+            "Mist": "Sương mù nhẹ",
+            "Precipitation In Vicinity": "Mưa tạnh trong vùng lân cận",
+            "Rain": "Mưa",
+            "Heavy Rain And Snow": "Mưa lớn và tuyết",
+            "Light Rain And Snow": "Mưa nhẹ và tuyết",
+            "Rain Showers": "Mưa rào",
+            "Heavy Rain": "Mưa lớn",
+            "Light Rain": "Mưa nhẹ",
+            "Sky Coverage Decreasing": "Bầu trời giảm phủ",
+            "Sky Coverage Increasing": "Bầu trời tăng phủ",
+            "Sky Unchanged": "Bầu trời không đổi",
+            "Smoke Or Haze": "Khói hoặc sương mù",
+            "Snow": "Tuyết",
+            "Snow And Rain Showers": "Mưa tuyết và mưa rào",
+            "Snow Showers": "Mưa tuyết rơi",
+            "Heavy Snow": "Tuyết rơi nặng",
+            "Light Snow": "Tuyết rơi nhẹ",
+            "Squalls": "Giông bão",
+            "Thunderstorm": "Giông bão có mưa",
+            "Thunderstorm Without Precipitation": "Giông bão không có mưa",
+            "Diamond Dust": "Bụi kim cương",
+            "Hail": "Mưa đá",
+            "Overcast": "Nhiều mây",
+            "Partially cloudy": "Mây rải rác",
+            "Clear": "Trời quang đãng"
+        },
+        "chart": {
+            "temp": "Nhiệt độ",
+            "hum": "Độ ẩm",
+            "uv": "Chỉ số UV",
+            "snow": "Tuyết"
+        }
+    }
+}

@@ -1,0 +1,153 @@
+<template>
+    <div v-if="info">
+        <div class="main-section">
+            <h3>{{ langData.days }}</h3>
+            <p>{{ info.resolvedAddress }}</p>
+            <TenDaysChart :info="info.days"></TenDaysChart>
+        </div>
+
+
+        <div class="main-section">
+            <div class="export">
+                <a-dropdown>
+                    <template #overlay>
+                        <a-menu @click="handleMenuClick">
+                            <a-menu-item key="1" title="pdf"><font-awesome-icon :icon="['fas', 'file-pdf']" />
+                                pdf</a-menu-item>
+                            <a-menu-item key="2" title="excel"><font-awesome-icon :icon="['fas', 'table']" />
+                                csv</a-menu-item>
+                        </a-menu>
+                    </template>
+                    <a-button>
+                        <font-awesome-icon :icon="['fas', 'file-export']" />
+                        <DownOutlined />
+                    </a-button>
+                </a-dropdown>
+            </div>
+            <weekend-details v-for="day in     info.days" :key="day.datetime" :info="day" />
+        </div>
+    </div>
+</template>
+<script>
+import { jsPDF } from "jspdf"
+import 'jspdf-autotable'
+import exportFromJSON from "export-from-json";
+import TenDaysChart from '@/components/chart/TenDaysChart.vue'
+import { mapState } from 'vuex'
+import WeekendDetails from '@/components/WeekendDetails.vue'
+
+
+import { DownOutlined } from '@ant-design/icons-vue';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faFileExport } from '@fortawesome/free-solid-svg-icons'
+import { faFilePdf } from '@fortawesome/free-solid-svg-icons'
+import { faTable } from '@fortawesome/free-solid-svg-icons'
+import { useStore } from 'vuex'
+import { computed } from 'vue';
+library.add(faFileExport, faFilePdf, faTable)
+export default {
+    setup() {
+        const store = useStore()
+        const langData = computed(() => store.getters.getLangData("days"))
+        const langDataDetails = computed(() => store.getters.getLangData("details"))
+        return { langData, langDataDetails }
+    },
+    computed: {
+        ...mapState([
+            'info'
+        ])
+    },
+    components: {
+        WeekendDetails, TenDaysChart, FontAwesomeIcon, DownOutlined
+    },
+    methods: {
+        print() {
+            console.log(this.info)
+        },
+        handleMenuClick(e) {
+            switch (e.item.title) {
+                case "pdf":
+                    this.exportPdf();
+                    break;
+                case "excel":
+                    this.exportExcel();
+                    break;
+                default:
+                    console.log('error');
+                    break;
+            }
+        },
+        exportPdf() {
+            const doc = new jsPDF({
+                orientation: "p", //set orientation
+                unit: "pt", //set unit for document
+                format: "letter" //set document standard
+            });
+            var columns = [
+                { title: "Datetime", dataKey: "datetime" },
+                { title: "Temperature", dataKey: "temp" },
+                { title: "Conditions", dataKey: "conditions" },
+                { title: "Feels like", dataKey: "feelslike" },
+                { title: "Humidity", dataKey: "humidity" },
+                { title: "UV index", dataKey: "uvindex" },
+                { title: "Wind Speed", dataKey: "windspeed" }
+            ];
+            var rows = [];
+            this.info.days.forEach(day => {
+                rows.push({
+                    'datetime': day.datetime,
+                    'temp': day.temp,
+                    'conditions': day.conditions,
+                    'feelslike': day.feelslike,
+                    'humidity': day.humidity,
+                    'uvindex': day.uvindex,
+                    'windspeed': day.windspeed
+                });
+            });
+            doc.autoTable(columns, rows, {
+                margin: { top: 60 },
+                addPageContent: () => {
+                    doc.text(" 15 days Weather " + this.info.address, 40, 30);
+                }
+            });
+            doc.save(this.info.resolvedAddress + " 15 days weather data" + '.pdf');
+        },
+
+        exportExcel() {
+            const data = this.info.days;
+            const fileName = this.info.resolvedAddress + " 15 days weather data";
+            const exportType = exportFromJSON.types.csv;
+            const fields = {
+                datetime: 'Datetime',
+                temp: 'Temperature',
+                conditions: 'Conditions',
+                feelslike: 'Feels like',
+                humidity: 'Humidity',
+                uvindex: 'UV index ',
+                windspeed: 'Wind Speed'
+            };
+
+            if (data) exportFromJSON({ data: data, fileName: fileName, exportType: exportType, fields: fields });
+        },
+    }
+}
+</script>
+<style>
+:root {
+    --border: 10px;
+}
+
+.main-section {
+    margin: 30px 20px;
+    padding: 10px 10px;
+    background-color: white;
+    border-radius: var(--border);
+}
+
+.export {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+</style>
