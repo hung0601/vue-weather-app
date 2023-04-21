@@ -12,21 +12,21 @@ const routes = [
     path: "/login",
     name: "login",
     component: import(
-      /* webpackChunkName: "login" */ "@/components/authen/LoginComponent.vue"
+      /* webpackChunkName: "login" */ "@/views/authen/LoginComponent.vue"
     ),
   },
   {
     path: "/register",
     name: "register",
     component: import(
-      /* webpackChunkName: "register" */ "@/components/authen/RegisterComponent.vue"
+      /* webpackChunkName: "register" */ "@/views/authen/RegisterComponent.vue"
     ),
   },
   {
     path: "/db",
     name: "dashboard",
     component: import(
-      /* webpackChunkName: "dashboard" */ "@/components/authen/DashBoard.vue"
+      /* webpackChunkName: "dashboard" */ "@/views/authen/DashBoard.vue"
     ),
   },
   {
