@@ -112,6 +112,33 @@ export default {
 };
 </script>
 <style>
+.login-form {
+    background-color: white;
+    padding: 20px 20px;
+    border-radius: 5px;
+    max-width: 40%;
+    min-width: 300px;
+    margin-left: 50%;
+    margin-top: 250px;
+    transform: translate(-50%, -50%);
+
+}
+
+.error-alert {
+    width: 50%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 50px;
+}
+
+.login-form-forgot {
+    float: right;
+}
+
+.login-form-button {
+    width: 100%;
+}
+
 .error-alert {
     width: 50%;
     margin-left: 50%;
