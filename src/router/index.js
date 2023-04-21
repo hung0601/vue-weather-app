@@ -23,13 +23,6 @@ const routes = [
     ),
   },
   {
-    path: "/db",
-    name: "dashboard",
-    component: import(
-      /* webpackChunkName: "dashboard" */ "@/views/authen/DashBoard.vue"
-    ),
-  },
-  {
     path: "/city/:city",
     name: "city",
     props: true,
