@@ -1,5 +1,5 @@
 <template>
-    <a-row>
+    <div class="grid-item">
         <a-col :span="24">
             <a-collapse expand-icon-position="right">
                 <a-collapse-panel :header="test">
@@ -55,7 +55,7 @@
                 </a-collapse-panel>
             </a-collapse>
         </a-col>
-    </a-row>
+    </div>
 </template>
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -101,7 +101,7 @@ export default {
                 <h3> {this.info.temp}<span>&#176;</span></h3>
                 <div className="icon-info image">
                     <img src={this.imageSource} />
-                    <p className="conditions-text">{this.getCondition(this.info.conditions)}</p>
+                    <p className="conditions-text">{this.getCondition(this.info.conditions)}<span class="tooltiptext">{this.getCondition(this.info.conditions)}</span></p>
                 </div>
                 <div className="icon-info">
                     <i class="fa-solid fa-droplet"></i>
@@ -163,6 +163,7 @@ export default {
 
 .image {
     width: 30% !important;
+    white-space: nowrap;
 }
 
 
@@ -187,14 +188,37 @@ export default {
     margin-right: 10px;
 }
 
+.conditions-text {
+    width: 60%;
+    max-height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+.conditions-text:hover .tooltiptext {
+    visibility: visible;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    background-color: #d1cbcb;
+    position: absolute;
+    transform: translate(-50%, -100%);
+    z-index: 1;
+}
+
 @media only screen and (max-width: 850px) {
-    .conditions-text {
-        display: none;
-    }
 
     .icon-info img {
         width: 30px;
         min-height: 30px;
+        margin-right: 10px;
     }
 
     .datetime {
@@ -214,6 +238,8 @@ export default {
 
     .collapse-header h3 {
         font-size: 16px !important;
+        min-width: 30px;
+        width: 30px;
     }
 
     .feel-like h1 {
@@ -227,6 +253,10 @@ export default {
 }
 
 @media only screen and (max-width: 500px) {
+    .conditions-text {
+        display: none;
+    }
+
     .collapse-header p {
         font-size: 10px !important;
     }
@@ -238,5 +268,11 @@ export default {
     .feel-like h1 {
         font-size: 25px !important;
     }
+}
+
+@media only screen and (min-width: 1500px) {}
+
+.conditions-text {
+    width: 80%;
 }
 </style>

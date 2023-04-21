@@ -24,7 +24,9 @@
                     </a-button>
                 </a-dropdown>
             </div>
-            <weekend-details v-for="day in     info.days" :key="day.datetime" :info="day" />
+            <div class="grid-container">
+                <weekend-details v-for="day in     info.days" :key="day.datetime" :info="day" />
+            </div>
         </div>
     </div>
 </template>
@@ -149,5 +151,18 @@ export default {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 10px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 100%;
+}
+
+@media only screen and (min-width: 1600px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
+
 }
 </style>

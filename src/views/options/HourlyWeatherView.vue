@@ -25,9 +25,11 @@
                         </a-button>
                     </a-dropdown>
                 </div>
+                <div class="grid-container">
 
-                <hourly-details v-for="hour in     info.days[0].hours" :key="hour.datetime" :info="hour" />
+                    <hourly-details v-for="hour in     info.days[0].hours" :key="hour.datetime" :info="hour" />
 
+                </div>
 
             </div>
 
@@ -157,5 +159,18 @@ export default {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 10px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 100%;
+}
+
+@media only screen and (min-width: 1600px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
+
 }
 </style>
