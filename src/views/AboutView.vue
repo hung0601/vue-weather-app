@@ -1,9 +1,11 @@
+/* eslint-disable */ 
 <template>
   <div class="about">
     <div class="main-div">
       <h3>{{ langData.creater }}</h3>
       <p>{{ langData.api }}</p>
       <RouterLink to="/">{{ langData.homepage }}</RouterLink>
+
     </div>
 
   </div>

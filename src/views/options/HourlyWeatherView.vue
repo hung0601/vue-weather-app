@@ -1,11 +1,11 @@
 <template>
     <div>
         <div v-if="info">
-            <div class="main-section">
+            <!-- <div class="main-section">
                 <h3>{{ langData.hourly }}</h3>
                 <p v-if="info">{{ info.resolvedAddress }}</p>
                 <LineChart :info="info.days[0].hours" :now="info.currentConditions.datetime" />
-            </div>
+            </div> -->
             <div class="main-section">
                 <div class="export">
                     <!-- <button @click="downloadFile" class="np-btn">Export to excel</button> -->
@@ -15,8 +15,10 @@
                             <a-menu @click="handleMenuClick">
                                 <a-menu-item key="1" title="pdf"><font-awesome-icon :icon="['fas', 'file-pdf']" />
                                     pdf</a-menu-item>
-                                <a-menu-item key="2" title="excel"><font-awesome-icon :icon="['fas', 'table']" />
+                                <a-menu-item key="2" title="csv"><font-awesome-icon :icon="['fas', 'table']" />
                                     csv</a-menu-item>
+                                <a-menu-item key="2" title="excel"><font-awesome-icon :icon="['fas', 'table']" />
+                                    excel</a-menu-item>
                             </a-menu>
                         </template>
                         <a-button>
@@ -25,7 +27,7 @@
                         </a-button>
                     </a-dropdown>
                 </div>
-                <div class="grid-container">
+                <div>
 
                     <hourly-details v-for="hour in     info.days[0].hours" :key="hour.datetime" :info="hour" />
 
@@ -39,10 +41,14 @@
 <script>
 import { jsPDF } from "jspdf"
 import 'jspdf-autotable'
-import LineChart from '@/components/chart/LineChart.vue'
+// import LineChart from '@/components/chart/LineChart.vue'
 import { mapState } from 'vuex'
 import HourlyDetails from '@/components/HourlyDetails.vue'
 import exportFromJSON from "export-from-json";
+
+import * as XLSX from 'xlsx/xlsx.mjs';
+
+
 import { DownOutlined } from '@ant-design/icons-vue';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -68,7 +74,7 @@ export default {
 
     },
     components: {
-        HourlyDetails, LineChart, FontAwesomeIcon, DownOutlined
+        HourlyDetails, FontAwesomeIcon, DownOutlined
     },
     methods: {
         handleMenuClick(e) {
@@ -76,8 +82,11 @@ export default {
                 case "pdf":
                     this.exportPdf();
                     break;
-                case "excel":
+                case "csv":
                     this.exportExcel();
+                    break;
+                case "excel":
+                    this.exportSheet();
                     break;
                 default:
                     console.log('error');
@@ -139,6 +148,24 @@ export default {
 
             if (data) exportFromJSON({ data: data, fileName: fileName, exportType: exportType, fields: fields });
         },
+        exportSheet: function () {
+            const data = this.info.days[0].hours.map((e) => {
+                return {
+                    datetime: e.datetime,
+                    temp: e.temp,
+                    conditions: e.conditions,
+                    feelslike: e.feelslike,
+                    humidity: e.humidity,
+                    uvindex: e.uvindex,
+                    windspeed: e.windspeed
+                }
+            })
+            const fileName = this.info.resolvedAddress + " hourly weather data.xlsx";
+            const workbook = XLSX.utils.book_new();
+            var worksheet = XLSX.utils.json_to_sheet(data);
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Weather data");
+            XLSX.writeFileXLSX(workbook, fileName, { bookType: "xlsx" });
+        }
     }
 }
 </script>
@@ -164,13 +191,5 @@ export default {
 .grid-container {
     display: grid;
     grid-template-columns: 100%;
-}
-
-@media only screen and (min-width: 1600px) {
-    .grid-container {
-        display: grid;
-        grid-template-columns: 50% 50%;
-    }
-
 }
 </style>

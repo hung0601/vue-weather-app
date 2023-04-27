@@ -2,39 +2,40 @@
     <div class="right-content">
 
         <div class="header-paner">
-            <div class="collapse-button">
-                <MenuUnfoldOutlined v-if="store.state.leftbarview" @click="store.commit('toggleLeftbar')" />
-                <MenuFoldOutlined v-else @click="store.commit('toggleLeftbar')" />
+            <div class="logo">
+                <img @click="toHomePage" src="@/assets/logo.svg" />
+                <p class="logo-text" @click="toHomePage" style="color: #fff;">Weather forecast</p>
             </div>
-            <div class="header-component">
-                <h2 style="display: block;color: #fff;">Weather forecast</h2>
+            <div class="weather-info" v-if="store.state.info">
+                <img :src="`/svg/${store.state.info.currentConditions.icon}.svg`" />
+                <p>{{ store.state.info.currentConditions.temp }}<span>&#176; </span>
+                    <span class="main-nav-text">{{ store.state.info.resolvedAddress }}</span>
+                </p>
+
+
             </div>
-            <a-auto-complete class="search-box" v-model:value="location" :options="searchResults"
-                :placeholder="langData.search" @select="onSearch" @search="handlerInput" />
+            <div v-else class="weather-info"></div>
+            <a-auto-complete class="search-box" v-model:value="location" :options="searchResults" @keyup.enter="onSearch"
+                :placeholder="langData.search" @search="handlerInput" />
 
             <div class="header-paner-left header-component">
                 <div class="language">
                     <a-dropdown>
                         <a style="color: #fff;" class="ant-dropdown-link" @click.prevent>
-                            <global-outlined />
+                            <span :class="langData.flag"></span>
                             <span class="main-nav-text">{{ langData.language }}</span>
                             <DownOutlined />
                         </a>
                         <template #overlay>
                             <a-menu @click="handleMenuClick">
-                                <a-menu-item key="en">English</a-menu-item>
-                                <a-menu-item key="vn">Tiếng Việt</a-menu-item>
+                                <a-menu-item key="en"><span class="fi fi-gb"></span> English</a-menu-item>
+                                <a-menu-item key="vn"><span class="fi fi-vn"></span> Tiếng Việt</a-menu-item>
                             </a-menu>
                         </template>
                     </a-dropdown>
-                    <!-- <a-select ref="select" style="width: 150px;" v-model:value="language"
-                            @change="handleLanguageChange">
-                            <a-select-option value="en">English</a-select-option>
-                            <a-select-option value="vn">Tiếng Việt</a-select-option>
-                        </a-select> -->
 
                 </div>
-                <div class="user-header" v-if="store.state.user.loggedIn">
+                <!-- <div class="user-header" v-if="store.state.user.loggedIn">
                     <a-avatar style="background-color: #87d068">
                         <template #icon>
                             <UserOutlined />
@@ -47,42 +48,41 @@
                     <RouterLink style="color: #fff;" :to="{ name: 'login' }">
                         <LoginOutlined /> <span class="main-nav-text">{{ langData.signin }}</span>
                     </RouterLink>
-                </div>
+                </div> -->
 
             </div>
 
         </div>
+
         <div>
             <router-view :key="$route.params.city"></router-view>
         </div>
 
-        <div style="text-align: center">
-            Ant Design ©2018 Created by Ant UED
-        </div>
     </div>
 </template>
 
 <script >
 
 import {
-    LogoutOutlined,
-    UserOutlined,
-    GlobalOutlined,
+    // LogoutOutlined,
+    // UserOutlined,
     DownOutlined,
-    LoginOutlined,
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
+    // LoginOutlined,
+
 
 
 } from '@ant-design/icons-vue'
 import { Loader } from '@googlemaps/js-api-loader';
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import { ref, computed } from 'vue';
+import "flag-icons/css/flag-icons.min.css";
 
 
 
 export default ({
     setup() {
+        const router = useRouter()
         const store = useStore()
         const language = ref('vn')
         const langData = computed(() => store.getters.getLangData("mainnav"))
@@ -93,18 +93,24 @@ export default ({
             store.commit("setLanguage", e.key)
 
         }
-        return { handleMenuClick, store, language, langData, handleLanguageChange }
+        const toHomePage = () => {
+            router.push('/city/Hanoi/today')
+        }
+        const handerEnterPress = () => {
+            console.log('press enter')
+        }
+        return { handerEnterPress, handleMenuClick, store, language, langData, handleLanguageChange, toHomePage }
     },
     data() {
         return {
             location: '',
             searchResults: [],
-            apiKey: 'AIzaSyDQr6a74_C8UYfDjFjLYaofM3ifD7KHfXo',
+            apiKey: 'AIzaSyDuJcTuHV6XJaKF_AR-Il0yXDl5ReIVBi0',
             service: null,
         }
     },
     components: {
-        UserOutlined, LogoutOutlined, GlobalOutlined, DownOutlined, LoginOutlined, MenuUnfoldOutlined, MenuFoldOutlined
+        DownOutlined
     },
     created() {
         const loader = new Loader({
@@ -125,8 +131,14 @@ export default ({
     mounted() {
 
     },
+    watch: {
+        location() {
+            if (this.location === '') this.searchResults = this.store.state.searchLst
+        }
+    },
     methods: {
         onSearch() {
+            this.store.commit('addToSearchLst', this.location)
             this.$router.push({ name: 'today', params: { city: this.location } })
             this.location = ''
         },
@@ -177,7 +189,8 @@ export default ({
 .right-content {
     width: 100%;
     position: relative;
-    min-height: 70px;
+    min-height: 100vh;
+    background-image: linear-gradient(0deg, #d8eeee, #d8eeee 25%, #275683a8 65%, #16416a 90%, #16416a);
 }
 
 .header-paner {
@@ -190,6 +203,23 @@ export default ({
     justify-content: space-between;
     align-items: center;
     height: 70px;
+}
+
+.weather-info {
+    color: white !important;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+}
+
+.weather-info img {
+    width: 35px;
+}
+
+.weather-info p {
+    margin-bottom: 0;
 }
 
 .header-component {
@@ -275,6 +305,31 @@ export default ({
     width: 400px;
 }
 
+.logo {
+    text-align: center;
+    width: 10%;
+}
+
+.logo:hover {
+    cursor: pointer;
+}
+
+.logo img {
+    width: 60px;
+    margin-top: 10px;
+}
+
+.logo h4 {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+@media only screen and (max-width: 1200px) {
+    .logo-text {
+        display: none;
+    }
+}
+
 @media only screen and (max-width: 950px) {
     .main-nav-text {
         display: none;
@@ -287,6 +342,13 @@ export default ({
     h2 {
         font-size: 20px;
     }
+
+}
+
+@media only screen and (max-width: 600px) {
+    .logo img {
+        width: 30px;
+    }
 }
 
 @media only screen and (max-width: 400px) {
@@ -298,8 +360,5 @@ export default ({
         font-size: 16px;
     }
 
-    .collapse-button svg {
-        width: 22px !important;
-    }
 }
 </style>

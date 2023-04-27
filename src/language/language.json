@@ -9,7 +9,8 @@
             "about": "Go to about"
         },
         "mainnav": {
-            "language": "Language",
+            "language": "English",
+            "flag": "fi fi-gb",
             "search": "Search city",
             "signin": "Sign in"
         },
@@ -130,7 +131,8 @@
             "about": "Về chúng tôi"
         },
         "mainnav": {
-            "language": "Ngôn Ngữ",
+            "language": "Tiếng Việt",
+            "flag": "fi fi-vn",
             "search": "Tìm kiếm thành phố",
             "signin": "Đăng nhập"
         },

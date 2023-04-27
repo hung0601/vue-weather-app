@@ -58,7 +58,7 @@ export default {
 }
 
 .icon {
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
 
 .icon p {
@@ -66,10 +66,9 @@ export default {
 }
 
 .left-icon {
-    margin-right: 10px;
     display: flex;
     align-items: center;
-    width: 25px;
+    width: 20px;
 }
 
 .divider {

@@ -189,7 +189,7 @@ export default {
 }
 
 .conditions-text {
-    width: 60%;
+    width: 95px;
     max-height: 50px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -270,9 +270,10 @@ export default {
     }
 }
 
-@media only screen and (min-width: 1500px) {}
+@media only screen and (min-width: 1500px) {
+    .conditions-text {
+        width: 80%;
+    }
 
-.conditions-text {
-    width: 80%;
 }
 </style>

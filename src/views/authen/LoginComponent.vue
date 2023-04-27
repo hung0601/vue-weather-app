@@ -96,6 +96,11 @@ export default {
     margin-top: 250px;
     transform: translate(-50%, -50%);
 
+
+}
+
+.login-form h3 {
+    text-align: center;
 }
 
 

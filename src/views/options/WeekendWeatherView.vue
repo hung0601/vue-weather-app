@@ -14,8 +14,10 @@
                         <a-menu @click="handleMenuClick">
                             <a-menu-item key="1" title="pdf"><font-awesome-icon :icon="['fas', 'file-pdf']" />
                                 pdf</a-menu-item>
-                            <a-menu-item key="2" title="excel"><font-awesome-icon :icon="['fas', 'table']" />
+                            <a-menu-item key="2" title="csv"><font-awesome-icon :icon="['fas', 'table']" />
                                 csv</a-menu-item>
+                            <a-menu-item key="2" title="excel"><font-awesome-icon :icon="['fas', 'table']" />
+                                excel</a-menu-item>
                         </a-menu>
                     </template>
                     <a-button>
@@ -47,6 +49,7 @@ import { faFilePdf } from '@fortawesome/free-solid-svg-icons'
 import { faTable } from '@fortawesome/free-solid-svg-icons'
 import { useStore } from 'vuex'
 import { computed } from 'vue';
+import * as XLSX from 'xlsx/xlsx.mjs';
 library.add(faFileExport, faFilePdf, faTable)
 export default {
     setup() {
@@ -72,8 +75,11 @@ export default {
                 case "pdf":
                     this.exportPdf();
                     break;
-                case "excel":
+                case "csv":
                     this.exportExcel();
+                    break;
+                case "excel":
+                    this.exportSheet();
                     break;
                 default:
                     console.log('error');
@@ -132,6 +138,24 @@ export default {
 
             if (data) exportFromJSON({ data: data, fileName: fileName, exportType: exportType, fields: fields });
         },
+        exportSheet: function () {
+            const data = this.info.days.map((e) => {
+                return {
+                    datetime: e.datetime,
+                    temp: e.temp,
+                    conditions: e.conditions,
+                    feelslike: e.feelslike,
+                    humidity: e.humidity,
+                    uvindex: e.uvindex,
+                    windspeed: e.windspeed
+                }
+            })
+            const fileName = this.info.resolvedAddress + " 15 days weather data.xlsx";
+            const workbook = XLSX.utils.book_new();
+            var worksheet = XLSX.utils.json_to_sheet(data);
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Weather data");
+            XLSX.writeFileXLSX(workbook, fileName, { bookType: "xlsx" });
+        }
     }
 }
 </script>
@@ -156,13 +180,5 @@ export default {
 .grid-container {
     display: grid;
     grid-template-columns: 100%;
-}
-
-@media only screen and (min-width: 1600px) {
-    .grid-container {
-        display: grid;
-        grid-template-columns: 50% 50%;
-    }
-
 }
 </style>

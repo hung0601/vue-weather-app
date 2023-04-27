@@ -11,6 +11,7 @@ import { auth } from "@/firebase";
 export default createStore({
   state: {
     info: null,
+    searchLst: [],
     user: {
       loggedIn: false,
       data: null,
@@ -28,6 +29,9 @@ export default createStore({
     },
   },
   mutations: {
+    addToSearchLst(state, payload) {
+      state.searchLst.push({ value: payload });
+    },
     setLanguage(state, payload) {
       state.language = payload;
     },

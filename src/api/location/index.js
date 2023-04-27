@@ -1,16 +1,21 @@
 import axios from "axios";
+var config = {
+  method: "get",
+  url: "https://maps.googleapis.com/maps/api/place/autocomplete/json",
+  params: {
+    input: "Ha",
+    radius: "500",
+    key: "AIzaSyCY-TiMW8v8O4TVvfhvDCKHNKF9xB0hjDc",
+  },
+};
 
-export default function getLocationData(location) {
-  let options = {
-    method: "GET",
-    url: "http://api.openweathermap.org/geo/1.0/direct",
-    params: {
-      q: "Ha",
-      appid: "52d77a553d59e31a91fb7f2f6a24bf6d",
-    },
-  };
-  options.params.q = location;
-  return axios.request(options).then((response) => {
-    return response.data;
-  });
-}
+const getLocation = () =>
+  axios
+    .request(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+export default getLocation;

@@ -69,14 +69,14 @@
             <h3>{{ langData.weathertoday }} {{ info.resolvedAddress }}</h3>
             <div class="details-content2">
                 <a-row>
-                    <a-col class="feel-like" :xs="22" :md="11" :lg="11">
+                    <a-col class="feel-like" :xs="22" :md="22" :lg="22" :xl="11">
                         <!-- <detail-condition :title="'Feels like'" :value="info.currentConditions.temp"
                             ></detail-condition> -->
                         <h1>{{ info.currentConditions.temp }}<span>&#176;</span></h1>
                         <p>{{ langDataDetails.feelslike }}</p>
                         <a-divider class="divider2" />
                     </a-col>
-                    <a-col :xs="22" :md="11" :lg="11">
+                    <a-col :xs="22" :md="22" :lg="22" :xl="11">
                         <detail-condition :title="langDataDetails.sunrise" :value="info.currentConditions.sunrise">
                             <font-awesome-icon class="icons" :icon="['fas', 'up-long']" />
                         </detail-condition>
@@ -86,13 +86,13 @@
                     </a-col>
                 </a-row>
                 <a-row>
-                    <a-col :xs="22" :md="11" :lg="11">
+                    <a-col :xs="22" :md="22" :lg="22" :xl="11">
                         <detail-condition :title="langDataDetails.highlow" :unit="'&#176;C'" :value="info.days[0].tempmax + '/' +
                             info.days[0].tempmin">
                             <font-awesome-icon class="icons" :icon="['fas', 'temperature-half']" />
                         </detail-condition>
                     </a-col>
-                    <a-col :xs="22" :md="11" :lg="11">
+                    <a-col :xs="22" :md="22" :lg="22" :xl="11">
                         <detail-condition :title="langDataDetails.humidity" :unit="'&#37;'" :precision="2"
                             :value="info.currentConditions.humidity">
                             <font-awesome-icon class="icons" :icon="['fas', 'droplet']" />
@@ -100,12 +100,12 @@
                     </a-col>
                 </a-row>
                 <a-row>
-                    <a-col :xs="22" :md="11" :lg="11">
+                    <a-col :xs="22" :md="22" :lg="22" :xl="11">
                         <detail-condition :title="langDataDetails.uv" :value="info.currentConditions.uvindex">
                             <font-awesome-icon class="icons" :icon="['fas', 'sun']" />
                         </detail-condition>
                     </a-col>
-                    <a-col :xs="22" :md="11" :lg="11">
+                    <a-col :xs="22" :md="22" :lg="22" :xl="11">
                         <detail-condition :title="langDataDetails.visibility" :unit="'km'" :precision="2"
                             :value="info.currentConditions.visibility">
                             <font-awesome-icon class="icons" :icon="['fas', 'eye']" />
@@ -113,13 +113,13 @@
                     </a-col>
                 </a-row>
                 <a-row>
-                    <a-col :xs="22" :md="11" :lg="11">
+                    <a-col :xs="22" :md="22" :lg="22" :xl="11">
                         <detail-condition :title="langDataDetails.windspeed" :unit="'km/h'"
                             :value="info.currentConditions.windspeed">
                             <font-awesome-icon class="icons" :icon="['fas', 'wind']" />
                         </detail-condition>
                     </a-col>
-                    <a-col :xs="22" :md="11" :lg="11">
+                    <a-col :xs="22" :md="22" :lg="22" :xl="11">
                         <detail-condition :title="langDataDetails.winddir" :precision="2"
                             :value="info.currentConditions.winddir">
                             <font-awesome-icon class="icons" :icon="['fas', 'location-arrow']" />
@@ -130,16 +130,13 @@
 
 
         </div>
-        <div class="main-section">
-            <LineChart :info="info.days[0].hours" :now="info.currentConditions.datetime" />
-        </div>
+
 
     </div>
 </template>
 <script>
 
 import { mapState } from 'vuex'
-import LineChart from '@/components/chart/LineChart.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faDroplet } from '@fortawesome/free-solid-svg-icons'
@@ -178,7 +175,7 @@ export default {
             'info'
         ])
     },
-    components: { FontAwesomeIcon, DetailCondition, LineChart },
+    components: { FontAwesomeIcon, DetailCondition },
     methods: {
         getTime(time) {
             if (this.info) {
@@ -209,6 +206,7 @@ export default {
     background-color: #01495e;
     border-radius: var(--border);
     color: white;
+    height: 250px;
     margin: 30px 20px;
 }
 
