@@ -24,7 +24,7 @@
                         <a style="color: #fff;" class="ant-dropdown-link" @click.prevent>
                             <span :class="langData.flag"></span>
                             <span class="main-nav-text">{{ langData.language }}</span>
-                            <DownOutlined />
+                            <DownOutlined style="margin-left: 5px;" />
                         </a>
                         <template #overlay>
                             <a-menu @click="handleMenuClick">
@@ -35,20 +35,7 @@
                     </a-dropdown>
 
                 </div>
-                <!-- <div class="user-header" v-if="store.state.user.loggedIn">
-                    <a-avatar style="background-color: #87d068">
-                        <template #icon>
-                            <UserOutlined />
-                        </template>
-                    </a-avatar>
-                    <p class="main-nav-text">{{ store.state.user.data.displayName }}</p>
-                    <LogoutOutlined class="logout-button" v-on:click="() => { store.dispatch('logOut') }" />
-                </div>
-                <div v-else>
-                    <RouterLink style="color: #fff;" :to="{ name: 'login' }">
-                        <LoginOutlined /> <span class="main-nav-text">{{ langData.signin }}</span>
-                    </RouterLink>
-                </div> -->
+
 
             </div>
 
@@ -105,7 +92,7 @@ export default ({
         return {
             location: '',
             searchResults: [],
-            apiKey: 'AIzaSyDuJcTuHV6XJaKF_AR-Il0yXDl5ReIVBi0',
+            apiKey: 'AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg',
             service: null,
         }
     },
@@ -143,6 +130,7 @@ export default ({
             this.location = ''
         },
         handlerInput() {
+            this.searchResults = []
             this.service.getPlacePredictions({
                 input: this.location,
                 types: ['(cities)']

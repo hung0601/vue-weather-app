@@ -7,6 +7,7 @@
                 <LineChart :info="info.days[0].hours" :now="info.currentConditions.datetime" />
             </div> -->
             <div class="main-section">
+                <h3>{{ langData.hourly }} {{ info.resolvedAddress }}</h3>
                 <div class="export">
                     <!-- <button @click="downloadFile" class="np-btn">Export to excel</button> -->
                     <!-- <button @click="print">xem</button> -->
@@ -27,10 +28,8 @@
                         </a-button>
                     </a-dropdown>
                 </div>
-                <div>
-
+                <div class="grid-container">
                     <hourly-details v-for="hour in     info.days[0].hours" :key="hour.datetime" :info="hour" />
-
                 </div>
 
             </div>
@@ -191,5 +190,12 @@ export default {
 .grid-container {
     display: grid;
     grid-template-columns: 100%;
+}
+
+@media only screen and (min-width: 1200px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
 }
 </style>

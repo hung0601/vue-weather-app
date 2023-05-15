@@ -13,6 +13,8 @@
 <script>
 import { useStore } from 'vuex'
 import { computed } from 'vue';
+import getLocation from '@/api/location';
+getLocation();
 export default {
   setup() {
     const store = useStore()

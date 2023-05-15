@@ -1,131 +1,147 @@
 <template>
-    <div v-if="info" id="contentToPrint">
-        <div class="summary-info">
-            <div class="address">
-                <p>{{ info.resolvedAddress }} <span> {{ info.currentConditions.datetime }}</span></p>
+    <div class="grid-container2">
+        <div v-if="info && !info.hasOwnProperty('errorCode')" class="grid-left-item" style="position: relative;">
+
+            <div class="left-side-bar left-item" :class="{ 'fullscreen': isFullscreen }">
+                <font-awesome-icon @click="handlerExpandButton" class="expand-button" :icon="['fas', 'expand']" />
+                <LeftBarView />
             </div>
-            <div class="main-info">
-                <div>
-                    <h3>{{ info.currentConditions.temp }}<span>&#176;</span></h3>
-                    <p>{{ langData.day }} {{ getTime('12:00:00').temp }}<span>&#176;</span></p>
-                    <p>{{ langData.night }} {{ getTime('23:00:00').temp }}<span>&#176;</span></p>
-                    <p>{{ getCondition(info.currentConditions.conditions) }}</p>
-                </div>
-                <div class="main-img">
-                    <img :src="`/svg/${info.currentConditions.icon}.svg`" />
-                </div>
+            <div class="left-item">
+                <LineChart :info="info.days[0].hours" :now="info.currentConditions.datetime" />
             </div>
+
         </div>
 
-        <div class="main-section timeline">
-            <a-row>
-                <a-col :xs="20" :sm="10" :md="10" :xl="5">
-                    <p>{{ langData.morning }} </p>
-                    <h2>{{ getTime("08:00:00").temp }}<span>&#176;</span></h2>
-                    <div class="img-info">
-                        <img :src="`/svg/${getTime('08:00:00').icon}.svg`" />
+        <div v-if="info" id="contentToPrint">
+            <div class="summary-info">
+                <div class="address">
+                    <p>{{ info.resolvedAddress }} <span> {{ info.currentConditions.datetime }}</span></p>
+                </div>
+                <div class="main-info">
+                    <div>
+                        <h3>{{ info.currentConditions.temp }}<span>&#176;</span></h3>
+                        <p>{{ langData.day }} {{ getTime('12:00:00').temp }}<span>&#176;</span></p>
+                        <p>{{ langData.night }} {{ getTime('23:00:00').temp }}<span>&#176;</span></p>
+                        <p>{{ getCondition(info.currentConditions.conditions) }}</p>
                     </div>
-                    <p><font-awesome-icon class="icons" :icon="['fas', 'droplet']" /> {{ getTime("08:00:00").humidity
-                    }}<span>&#37;</span></p>
-                </a-col>
-                <div class="fade_rule"></div>
-                <a-col :xs="20" :sm="10" :md="10" :xl="5">
-                    <p>{{ langData.afternoon }} </p>
-                    <h2>{{ getTime("14:00:00").temp }}<span>&#176;</span></h2>
-                    <div class="img-info">
-                        <img :src="`/svg/${getTime('14:00:00').icon}.svg`" />
+                    <div class="main-img">
+                        <img :src="`/svg/${info.currentConditions.icon}.svg`" />
                     </div>
-                    <p><font-awesome-icon class="icons" :icon="['fas', 'droplet']" /> {{ getTime("14:00:00").humidity }}
-                        <span>&#37;</span>
-                    </p>
-                </a-col>
-                <div class="fade_rule fade_rule2"></div>
-                <a-col :xs="20" :sm="10" :md="10" :xl="5">
-                    <p>{{ langData.evening }} </p>
-                    <h2>{{ getTime("19:00:00").temp }}<span>&#176;</span></h2>
-                    <div class="img-info">
-                        <img :src="`/svg/${getTime('19:00:00').icon}.svg`" />
-                    </div>
-                    <p><font-awesome-icon class="icons" :icon="['fas', 'droplet']" /> {{ getTime("19:00:00").humidity }}
-                        <span>&#37;</span>
-                    </p>
-                </a-col>
-                <div class="fade_rule"></div>
-                <a-col :xs="20" :sm="10" :md="10" :xl="5">
-                    <p>{{ langData.overnight }} </p>
-                    <h2>{{ getTime("23:00:00").temp }}<span>&#176;</span></h2>
-                    <div class="img-info">
-                        <img :src="`/svg/${getTime('23:00:00').icon}.svg`" />
-                    </div>
-                    <p><font-awesome-icon class="icons" :icon="['fas', 'droplet']" /> {{ getTime("23:00:00").humidity }}
-                        <span>&#37;</span>
-                    </p>
-                </a-col>
-            </a-row>
-        </div>
-        <div class="main-section details">
+                </div>
+            </div>
 
-
-            <h3>{{ langData.weathertoday }} {{ info.resolvedAddress }}</h3>
-            <div class="details-content2">
+            <div class="main-section timeline">
                 <a-row>
-                    <a-col class="feel-like" :xs="22" :md="22" :lg="22" :xl="11">
-                        <!-- <detail-condition :title="'Feels like'" :value="info.currentConditions.temp"
+                    <a-col :xs="20" :sm="10" :md="10" :xl="5">
+                        <p>{{ langData.morning }} </p>
+                        <h2>{{ getTime("08:00:00").temp }}<span>&#176;</span></h2>
+                        <div class="img-info">
+                            <img :src="`/svg/${getTime('08:00:00').icon}.svg`" />
+                        </div>
+                        <p><font-awesome-icon class="icons" :icon="['fas', 'droplet']" /> {{ getTime("08:00:00").humidity
+                        }}<span>&#37;</span></p>
+                    </a-col>
+                    <div class="fade_rule"></div>
+                    <a-col :xs="20" :sm="10" :md="10" :xl="5">
+                        <p>{{ langData.afternoon }} </p>
+                        <h2>{{ getTime("14:00:00").temp }}<span>&#176;</span></h2>
+                        <div class="img-info">
+                            <img :src="`/svg/${getTime('14:00:00').icon}.svg`" />
+                        </div>
+                        <p><font-awesome-icon class="icons" :icon="['fas', 'droplet']" /> {{ getTime("14:00:00").humidity }}
+                            <span>&#37;</span>
+                        </p>
+                    </a-col>
+                    <div class="fade_rule fade_rule2"></div>
+                    <a-col :xs="20" :sm="10" :md="10" :xl="5">
+                        <p>{{ langData.evening }} </p>
+                        <h2>{{ getTime("19:00:00").temp }}<span>&#176;</span></h2>
+                        <div class="img-info">
+                            <img :src="`/svg/${getTime('19:00:00').icon}.svg`" />
+                        </div>
+                        <p><font-awesome-icon class="icons" :icon="['fas', 'droplet']" /> {{ getTime("19:00:00").humidity }}
+                            <span>&#37;</span>
+                        </p>
+                    </a-col>
+                    <div class="fade_rule"></div>
+                    <a-col :xs="20" :sm="10" :md="10" :xl="5">
+                        <p>{{ langData.overnight }} </p>
+                        <h2>{{ getTime("23:00:00").temp }}<span>&#176;</span></h2>
+                        <div class="img-info">
+                            <img :src="`/svg/${getTime('23:00:00').icon}.svg`" />
+                        </div>
+                        <p><font-awesome-icon class="icons" :icon="['fas', 'droplet']" /> {{ getTime("23:00:00").humidity }}
+                            <span>&#37;</span>
+                        </p>
+                    </a-col>
+                </a-row>
+            </div>
+            <div class="main-section details">
+
+
+                <h3>{{ langData.weathertoday }} {{ info.resolvedAddress }}</h3>
+                <div class="details-content2">
+                    <a-row>
+                        <a-col class="feel-like" :xs="22" :md="22" :lg="22" :xl="11">
+                            <!-- <detail-condition :title="'Feels like'" :value="info.currentConditions.temp"
                             ></detail-condition> -->
-                        <h1>{{ info.currentConditions.temp }}<span>&#176;</span></h1>
-                        <p>{{ langDataDetails.feelslike }}</p>
-                        <a-divider class="divider2" />
-                    </a-col>
-                    <a-col :xs="22" :md="22" :lg="22" :xl="11">
-                        <detail-condition :title="langDataDetails.sunrise" :value="info.currentConditions.sunrise">
-                            <font-awesome-icon class="icons" :icon="['fas', 'up-long']" />
-                        </detail-condition>
-                        <detail-condition :title="langDataDetails.sunset" :value="info.currentConditions.sunset">
-                            <font-awesome-icon class="icons" :icon="['fas', 'down-long']" />
-                        </detail-condition>
-                    </a-col>
-                </a-row>
-                <a-row>
-                    <a-col :xs="22" :md="22" :lg="22" :xl="11">
-                        <detail-condition :title="langDataDetails.highlow" :unit="'&#176;C'" :value="info.days[0].tempmax + '/' +
-                            info.days[0].tempmin">
-                            <font-awesome-icon class="icons" :icon="['fas', 'temperature-half']" />
-                        </detail-condition>
-                    </a-col>
-                    <a-col :xs="22" :md="22" :lg="22" :xl="11">
-                        <detail-condition :title="langDataDetails.humidity" :unit="'&#37;'" :precision="2"
-                            :value="info.currentConditions.humidity">
-                            <font-awesome-icon class="icons" :icon="['fas', 'droplet']" />
-                        </detail-condition>
-                    </a-col>
-                </a-row>
-                <a-row>
-                    <a-col :xs="22" :md="22" :lg="22" :xl="11">
-                        <detail-condition :title="langDataDetails.uv" :value="info.currentConditions.uvindex">
-                            <font-awesome-icon class="icons" :icon="['fas', 'sun']" />
-                        </detail-condition>
-                    </a-col>
-                    <a-col :xs="22" :md="22" :lg="22" :xl="11">
-                        <detail-condition :title="langDataDetails.visibility" :unit="'km'" :precision="2"
-                            :value="info.currentConditions.visibility">
-                            <font-awesome-icon class="icons" :icon="['fas', 'eye']" />
-                        </detail-condition>
-                    </a-col>
-                </a-row>
-                <a-row>
-                    <a-col :xs="22" :md="22" :lg="22" :xl="11">
-                        <detail-condition :title="langDataDetails.windspeed" :unit="'km/h'"
-                            :value="info.currentConditions.windspeed">
-                            <font-awesome-icon class="icons" :icon="['fas', 'wind']" />
-                        </detail-condition>
-                    </a-col>
-                    <a-col :xs="22" :md="22" :lg="22" :xl="11">
-                        <detail-condition :title="langDataDetails.winddir" :precision="2"
-                            :value="info.currentConditions.winddir">
-                            <font-awesome-icon class="icons" :icon="['fas', 'location-arrow']" />
-                        </detail-condition>
-                    </a-col>
-                </a-row>
+                            <h1>{{ info.currentConditions.temp }}<span>&#176;</span></h1>
+                            <p>{{ langDataDetails.feelslike }}</p>
+                            <a-divider class="divider2" />
+                        </a-col>
+                        <a-col :xs="22" :md="22" :lg="22" :xl="11">
+                            <detail-condition :title="langDataDetails.sunrise" :value="info.currentConditions.sunrise">
+                                <font-awesome-icon class="icons" :icon="['fas', 'up-long']" />
+                            </detail-condition>
+                            <detail-condition :title="langDataDetails.sunset" :value="info.currentConditions.sunset">
+                                <font-awesome-icon class="icons" :icon="['fas', 'down-long']" />
+                            </detail-condition>
+                        </a-col>
+                    </a-row>
+                    <a-row>
+                        <a-col :xs="22" :md="22" :lg="22" :xl="11">
+                            <detail-condition :title="langDataDetails.highlow" :unit="'&#176;C'" :value="info.days[0].tempmax + '/' +
+                                info.days[0].tempmin">
+                                <font-awesome-icon class="icons" :icon="['fas', 'temperature-half']" />
+                            </detail-condition>
+                        </a-col>
+                        <a-col :xs="22" :md="22" :lg="22" :xl="11">
+                            <detail-condition :title="langDataDetails.humidity" :unit="'&#37;'" :precision="2"
+                                :value="info.currentConditions.humidity">
+                                <font-awesome-icon class="icons" :icon="['fas', 'droplet']" />
+                            </detail-condition>
+                        </a-col>
+                    </a-row>
+                    <a-row>
+                        <a-col :xs="22" :md="22" :lg="22" :xl="11">
+                            <detail-condition :title="langDataDetails.uv" :value="info.currentConditions.uvindex">
+                                <font-awesome-icon class="icons" :icon="['fas', 'sun']" />
+                            </detail-condition>
+                        </a-col>
+                        <a-col :xs="22" :md="22" :lg="22" :xl="11">
+                            <detail-condition :title="langDataDetails.visibility" :unit="'km'" :precision="2"
+                                :value="info.currentConditions.visibility">
+                                <font-awesome-icon class="icons" :icon="['fas', 'eye']" />
+                            </detail-condition>
+                        </a-col>
+                    </a-row>
+                    <a-row>
+                        <a-col :xs="22" :md="22" :lg="22" :xl="11">
+                            <detail-condition :title="langDataDetails.windspeed" :unit="'km/h'"
+                                :value="info.currentConditions.windspeed">
+                                <font-awesome-icon class="icons" :icon="['fas', 'wind']" />
+                            </detail-condition>
+                        </a-col>
+                        <a-col :xs="22" :md="22" :lg="22" :xl="11">
+                            <detail-condition :title="langDataDetails.winddir" :precision="2"
+                                :value="info.currentConditions.winddir">
+                                <font-awesome-icon class="icons" :icon="['fas', 'location-arrow']" />
+                            </detail-condition>
+                        </a-col>
+                    </a-row>
+                </div>
+
+
             </div>
 
 
@@ -147,11 +163,16 @@ import { faSun } from '@fortawesome/free-solid-svg-icons'
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 import { faUpLong } from '@fortawesome/free-solid-svg-icons'
 import { faDownLong } from '@fortawesome/free-solid-svg-icons'
+import { faExpand } from '@fortawesome/free-solid-svg-icons'
 
 import DetailCondition from '@/components/DetailCondition.vue'
-library.add(faDroplet, faTemperatureHalf, faEye, faWind, faSun, faLocationArrow, faUpLong, faDownLong)
+library.add(faExpand, faDroplet, faTemperatureHalf, faEye, faWind, faSun, faLocationArrow, faUpLong, faDownLong)
 import { useStore } from 'vuex'
-import { computed } from 'vue';
+import { computed, ref } from 'vue'
+
+import LineChart from '@/components/chart/LineChart.vue'
+import LeftBarView from '@/components/main/LeftBarView.vue'
+
 export default {
     setup() {
         const store = useStore()
@@ -168,14 +189,19 @@ export default {
             }
             return langDataConditions.value[condition]
         }
-        return { getCondition, langData, langDataDetails, langDataConditions }
+        const isFullscreen = ref(false);
+        const handlerExpandButton = () => {
+            isFullscreen.value = !isFullscreen.value;
+            //callWindy(store.state.info.latitude, store.state.info.longitude, store.state.info.resolvedAddress);
+        }
+        return { getCondition, langData, langDataDetails, langDataConditions, handlerExpandButton, isFullscreen }
     },
     computed: {
         ...mapState([
             'info'
         ])
     },
-    components: { FontAwesomeIcon, DetailCondition },
+    components: { FontAwesomeIcon, DetailCondition, LineChart, LeftBarView },
     methods: {
         getTime(time) {
             if (this.info) {
@@ -260,6 +286,7 @@ export default {
     border-radius: var(--border);
     color: black;
     padding: 30px 30px;
+    height: 370px;
 }
 
 .details-content2 {
@@ -333,6 +360,62 @@ export default {
 .divider2 {
     margin-bottom: 16px;
     margin-top: 0px;
+}
+
+.expand-button {
+    font-size: 30px;
+    position: absolute;
+    z-index: 1003;
+}
+
+.expand-button:hover {
+    cursor: pointer;
+}
+
+.windy-map {
+    width: 100%;
+    height: 100%;
+    z-index: 800;
+}
+
+.fullscreen {
+    position: fixed !important;
+    top: 0 !important;
+    z-index: 1002;
+    width: 100% !important;
+    height: 85vh !important;
+    margin-top: 0 !important;
+}
+
+.left-side-bar {
+    display: block;
+    height: 475px;
+    width: 100%;
+
+}
+
+.grid-container2 {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.left-item {
+    width: 95%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    margin-top: 30px;
+    border-radius: 5px;
+}
+
+@media only screen and (max-width: 1200px) {
+    .grid-container2 {
+        grid-template-columns: 100%;
+    }
+
+    .details {
+        height: auto;
+    }
 }
 
 @media only screen and (max-width: 1200px) and (min-width: 600px) {

@@ -110,8 +110,7 @@ export default {
 </script>
 <style>
 #myChart {
-    min-height: 250px;
-    max-height: 300px;
+    height: 370px;
 }
 
 @media only screen and (max-width: 500px) {

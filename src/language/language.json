@@ -22,7 +22,7 @@
         "cityview": {
             "today": "Today",
             "hourly": "Hourly",
-            "days": "15 Days",
+            "days": "2 Weeks",
             "notice": "Invalid location found. Please check your location!"
         },
         "today": {
@@ -38,7 +38,8 @@
             "hourly": "Hourly Weather"
         },
         "days": {
-            "days": "15 Days"
+            "text": "2 Weeks Weather",
+            "days": "2 Weeks"
         },
         "details": {
             "feelslike": "Feels like",
@@ -142,9 +143,9 @@
             "homepage": "Trang chủ"
         },
         "cityview": {
-            "today": "Hôm nay",
-            "hourly": "Hằng giờ",
-            "days": "15 ngày",
+            "today": "Hôm Nay",
+            "hourly": "Hằng Giờ",
+            "days": "2 Tuần",
             "notice": "Không tìm thấy thông tin thời tiết về địa điểm"
         },
         "today": {
@@ -160,7 +161,8 @@
             "hourly": "Thời tiết theo giờ"
         },
         "days": {
-            "days": "15 ngày"
+            "text": "Thời tiết 2 tuần",
+            "days": "2 tuần"
         },
         "details": {
             "feelslike": "Cảm nhận",

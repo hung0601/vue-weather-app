@@ -1,13 +1,9 @@
 <template>
     <div v-if="info">
-        <div class="main-section">
-            <h3>{{ langData.days }}</h3>
-            <p>{{ info.resolvedAddress }}</p>
-            <TenDaysChart :info="info.days"></TenDaysChart>
-        </div>
 
 
         <div class="main-section">
+            <h3>{{ langData.text }} {{ info.resolvedAddress }}</h3>
             <div class="export">
                 <a-dropdown>
                     <template #overlay>
@@ -27,7 +23,7 @@
                 </a-dropdown>
             </div>
             <div class="grid-container">
-                <weekend-details v-for="day in     info.days" :key="day.datetime" :info="day" />
+                <weekend-details v-for="(day, index) in info.days" v-show="index != 14" :key="day.datetime" :info="day" />
             </div>
         </div>
     </div>
@@ -36,7 +32,7 @@
 import { jsPDF } from "jspdf"
 import 'jspdf-autotable'
 import exportFromJSON from "export-from-json";
-import TenDaysChart from '@/components/chart/TenDaysChart.vue'
+
 import { mapState } from 'vuex'
 import WeekendDetails from '@/components/WeekendDetails.vue'
 
@@ -64,7 +60,7 @@ export default {
         ])
     },
     components: {
-        WeekendDetails, TenDaysChart, FontAwesomeIcon, DownOutlined
+        WeekendDetails, FontAwesomeIcon, DownOutlined
     },
     methods: {
         print() {
@@ -180,5 +176,12 @@ export default {
 .grid-container {
     display: grid;
     grid-template-columns: 100%;
+}
+
+@media only screen and (min-width: 1200px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
 }
 </style>

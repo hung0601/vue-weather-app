@@ -1,11 +1,11 @@
 import axios from "axios";
 var config = {
   method: "get",
-  url: "https://maps.googleapis.com/maps/api/place/autocomplete/json",
+  url: "https://dev.virtualearth.net/REST/v1/LocalSearch",
   params: {
-    input: "Ha",
-    radius: "500",
-    key: "AIzaSyCY-TiMW8v8O4TVvfhvDCKHNKF9xB0hjDc",
+    query: "Ha",
+    key: "Ak9oafqwwii6U1fhtlp9GqpUazhT33z0Hv-DCXJAch2kPX3MIgZxOSPsrbOkcbOP",
+    maxResults: 10,
   },
 };
 
@@ -13,7 +13,7 @@ const getLocation = () =>
   axios
     .request(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      console.log(response.data);
     })
     .catch(function (error) {
       console.log(error);
